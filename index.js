@@ -1,6 +1,7 @@
 'use strict'
 
 const NetworkManager = require('./lib/network-manager')
+const Wireless = require('./lib/wireless')
 const Device = require('./lib/device')
 const Connection = require('./lib/connection')
 
@@ -28,5 +29,6 @@ module.exports = NetworkManager
  * const device = new Device()
  */
 module.exports.NetworkManager = NetworkManager
+module.exports.Wireless = Wireless
 module.exports.Device = Device
 module.exports.Connection = Connection
