@@ -6,6 +6,8 @@
   "scripts": {
     "test": "mocha tests/*.test.js",
     "test:dev": "mocha --watch \"tests/*.test.js\"",
+    "test:init": "sudo docker build --rm -f Dockerfile.test -t nm-dbus-test-environment .",
+    "test:isolated": "sudo docker run --rm --mount type=bind,src=$(pwd),dst=/app --env DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" nm-dbus-test-environment",
     "coverage": "nyc mocha tests/*.test.js"
   },
   "keywords": [

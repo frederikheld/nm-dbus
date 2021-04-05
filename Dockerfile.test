@@ -1,0 +1,16 @@
+FROM node:14-buster
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y dbus
+
+# DEBUG: to proof that it exists:
+# RUN cat /usr/share/dbus-1/system.conf
+
+# The alternative to installing and running dbus-daemon inside
+# the container is connecting to the host dbus socket:
+ENV DBUS_SYSTEM_BUS_ADDRESS "unix:path=/host/run/dbus/system_bus_socket"
+# ENV DBUS_SYSTEM_BUS_ADDRESS  
+
+# ENTRYPOINT [ "npm", "run", "test" ]
+ENTRYPOINT [ "sh", "./entrypoint-test.sh" ]
