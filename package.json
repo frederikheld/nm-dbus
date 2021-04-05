@@ -1,0 +1,17 @@
+{
+  "name": "nm-dbus",
+  "version": "0.0.1",
+  "description": "Provides simplified access to NetworkManager features via DBus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "network-manager",
+    "dbus",
+    "networking",
+    "linux"
+  ],
+  "author": "Frederik S. Held (kontakt@frederikheld.de)",
+  "license": "MIT"
+}
