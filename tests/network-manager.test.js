@@ -5,27 +5,49 @@ const chai = require('chai')
 chai.should()
 const expect = chai.expect
 
-const { NetworkManager, Device } = require('../lib/network-manager')
+const { NetworkManager, Connection, Device, Devices, Wireless } = require('../lib/network-manager')
 
 describe ('Module import', () => {
-    it ('Should provide submodule access via static methods', () => {
+    it ('Should provide direct submodule access', () => {
         expect(() => {
             const NetworkManager = require('../lib/network-manager')
 
             const nm = new NetworkManager()
-            const device = new NetworkManager.Device()
+
             const connection = new NetworkManager.Connection()
+            expect(connection).to.be.instanceOf(Connection)
+
+            const device = new NetworkManager.Device()
+            expect(device).to.be.instanceOf(Device)
+
+            const devices = new NetworkManager.Devices(nm.bus, nm.dbusConfig)
+            expect(devices).to.be.instanceOf(Devices)
+
+            const wireless = new NetworkManager.Wireless()
+            expect(wireless).to.be.instanceOf(Wireless)
         }).to.not.throw()
     })
 
     it ('Should provide module destructuring', () => {
         expect(() => {
-            const { NetworkManager, Device, Connection } = require('../lib/network-manager')
+            const { NetworkManager, Connection, Device, Devices } = require('../lib/network-manager')
 
             const nm = new NetworkManager()
-            const device = new Device()
             const connection = new Connection()
+            const device = new Device()
+            const devices = new Devices(nm.bus, nm.dbusConfig)
+            const wireless = new Wireless()
         }).to.not.throw()
+    })
+})
+
+describe ('Sub-module access', () => {
+    describe ('nm.devices', () => {
+        it ('Should provide access to an instance of Devices', () => {
+            // const nm = new NetworkManager()
+            // const devices = nm.devices
+            // expect(devices).to.be.instanceOf(Devices)
+        })
     })
 })
 
@@ -49,10 +71,6 @@ describe ('Module import', () => {
 //         }).to.throw(Error)
 //     })
 // })
-
-describe('Get available devices with NM.listDevices()', () => {
-
-})
 
 // describe ('Device factory NetworkManager.getDevice()', () => {
 //     it ('Should return an object of type \'Device\'', () => {
