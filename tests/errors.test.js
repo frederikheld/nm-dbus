@@ -2,7 +2,6 @@
 
 const chai = require('chai')
 
-// chai.should()
 const expect = chai.expect
 
 const { DeviceNotFoundError, NoWirelessInterfaceError } = require('../lib/errors')
