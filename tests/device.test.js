@@ -14,7 +14,7 @@ describe ('Device', () => {
     describe ('Sub-module access', () => {
         describe ('device.accessPoints', () => {
             it ('Should provide access to an instance of AccessPoints', () => {
-                const device = new Device(dbus.systemBus(), {
+                const device = new Device({}, 'system', {
                     dbusName: 'foo.bar',
                     dbusPath: '/foo/bar',
                     dbusPropertiesName: '/props'

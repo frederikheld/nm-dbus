@@ -19,16 +19,16 @@ describe ('NetworkManager', () => {
 
                 const nm = new NetworkManager()
 
-                const connection = new NetworkManager.Connection(nm.bus, nm.dbusConfig)
+                const connection = new NetworkManager.Connection(nm.dbusType, nm.dbusConfig)
                 expect(connection).to.be.instanceOf(Connection)
 
-                const device = new NetworkManager.Device(nm.bus, nm.dbusConfig)
+                const device = new NetworkManager.Device({ }, nm.dbusType, nm.dbusConfig) // TODO: this signature deviates from the others which is bad.
                 expect(device).to.be.instanceOf(Device)
 
-                const devices = new NetworkManager.Devices(nm.bus, nm.dbusConfig)
+                const devices = new NetworkManager.Devices(nm.dbusType, nm.dbusConfig)
                 expect(devices).to.be.instanceOf(Devices)
 
-                const wireless = new NetworkManager.Wireless(nm.bus, nm.dbusConfig)
+                const wireless = new NetworkManager.Wireless(nm.dbusType, nm.dbusConfig)
                 expect(wireless).to.be.instanceOf(Wireless)
             }).to.not.throw()
         })
@@ -38,10 +38,10 @@ describe ('NetworkManager', () => {
                 const { NetworkManager, Connection, Device, Devices, Wireless } = require('../lib/network-manager')
 
                 const nm = new NetworkManager()
-                new Connection(nm.bus, nm.dbusConfig)
-                new Device(nm.bus, nm.dbusConfig)
-                new Devices(nm.bus, nm.dbusConfig)
-                new Wireless(nm.bus, nm.dbusConfig)
+                new Connection(nm.dbusType, nm.dbusConfig)
+                new Device({ }, nm.dbusType, nm.dbusConfig)
+                new Devices(nm.dbusType, nm.dbusConfig)
+                new Wireless(nm.dbusType, nm.dbusConfig)
             }).to.not.throw()
         })
     })
@@ -52,6 +52,14 @@ describe ('NetworkManager', () => {
                 const nm = new NetworkManager()
                 const devices = nm.devices
                 expect(devices).to.be.instanceOf(Devices)
+            })
+        })
+
+        describe ('nm.wireless', () => {
+            it ('Should provide access to an instance of Wireless', () => {
+                const nm = new NetworkManager()
+                const wireless = nm.wireless
+                expect(wireless).to.be.instanceOf(Wireless)
             })
         })
     })

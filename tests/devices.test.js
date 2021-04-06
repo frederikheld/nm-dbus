@@ -8,14 +8,18 @@ chai.should()
 const expect = chai.expect
 
 describe ('Devices', () => {
-    describe ('list()', () => {      
+    describe ('getAll()', () => {      
         it ('Should return a list of available network devices', async () => {
             const nm = new NetworkManager()
-            const listOfdevices = await nm.devices.list()
+            const listOfdevices = await nm.devices.getAll()
             expect(listOfdevices).to.be.an.instanceOf(Array).with.length.greaterThan(0) // TODO: this assumes that there's at least one network device available!
             expect(listOfdevices.every((item) => {
                 return item instanceof Device
             }))
-        })
+        }).timeout(20000)
+    })
+
+    describe ('getWireless()', () => {
+        it ('Should return a list of only devices that have a wireless interface')
     })
 })
