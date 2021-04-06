@@ -4,9 +4,9 @@
   "description": "Provides simplified access to NetworkManager features via DBus",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/*.test.js",
+    "test": "mocha --exit tests/*.test.js",
     "test:dev": "mocha --watch \"tests/*.test.js\"",
-    "coverage": "nyc mocha tests/*.test.js"
+    "test:coverage": "nyc mocha --exit tests/*.test.js"
   },
   "keywords": [
     "network-manager",
