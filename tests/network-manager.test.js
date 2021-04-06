@@ -5,48 +5,54 @@ const chai = require('chai')
 chai.should()
 const expect = chai.expect
 
-const { NetworkManager, Connection, Device, Devices, Wireless } = require('../lib/network-manager')
+const NetworkManager = require('../lib/network-manager')
+const Connection = require('../lib/connection')
+const Device = require('../lib/device')
+const Devices = require('../lib/devices')
+const Wireless = require('../lib/wireless')
 
-describe ('Module import', () => {
-    it ('Should provide direct submodule access', () => {
-        expect(() => {
-            const NetworkManager = require('../lib/network-manager')
+describe ('NetworkManager', () => {
+    describe ('Module import', () => {
+        it ('Should provide direct submodule access', () => {
+            expect(() => {
+                const NetworkManager = require('../lib/network-manager')
 
-            const nm = new NetworkManager()
+                const nm = new NetworkManager()
 
-            const connection = new NetworkManager.Connection()
-            expect(connection).to.be.instanceOf(Connection)
+                const connection = new NetworkManager.Connection(nm.bus, nm.dbusConfig)
+                expect(connection).to.be.instanceOf(Connection)
 
-            const device = new NetworkManager.Device()
-            expect(device).to.be.instanceOf(Device)
+                const device = new NetworkManager.Device(nm.bus, nm.dbusConfig)
+                expect(device).to.be.instanceOf(Device)
 
-            const devices = new NetworkManager.Devices(nm.bus, nm.dbusConfig)
-            expect(devices).to.be.instanceOf(Devices)
+                const devices = new NetworkManager.Devices(nm.bus, nm.dbusConfig)
+                expect(devices).to.be.instanceOf(Devices)
 
-            const wireless = new NetworkManager.Wireless()
-            expect(wireless).to.be.instanceOf(Wireless)
-        }).to.not.throw()
+                const wireless = new NetworkManager.Wireless(nm.bus, nm.dbusConfig)
+                expect(wireless).to.be.instanceOf(Wireless)
+            }).to.not.throw()
+        })
+
+        it ('Should provide module destructuring', () => {
+            expect(() => {
+                const { NetworkManager, Connection, Device, Devices, Wireless } = require('../lib/network-manager')
+
+                const nm = new NetworkManager()
+                new Connection(nm.bus, nm.dbusConfig)
+                new Device(nm.bus, nm.dbusConfig)
+                new Devices(nm.bus, nm.dbusConfig)
+                new Wireless(nm.bus, nm.dbusConfig)
+            }).to.not.throw()
+        })
     })
 
-    it ('Should provide module destructuring', () => {
-        expect(() => {
-            const { NetworkManager, Connection, Device, Devices } = require('../lib/network-manager')
-
-            const nm = new NetworkManager()
-            const connection = new Connection()
-            const device = new Device()
-            const devices = new Devices(nm.bus, nm.dbusConfig)
-            const wireless = new Wireless()
-        }).to.not.throw()
-    })
-})
-
-describe ('Sub-module access', () => {
-    describe ('nm.devices', () => {
-        it ('Should provide access to an instance of Devices', () => {
-            // const nm = new NetworkManager()
-            // const devices = nm.devices
-            // expect(devices).to.be.instanceOf(Devices)
+    describe ('Sub-module access', () => {
+        describe ('nm.devices', () => {
+            it ('Should provide access to an instance of Devices', () => {
+                const nm = new NetworkManager()
+                const devices = nm.devices
+                expect(devices).to.be.instanceOf(Devices)
+            })
         })
     })
 })
