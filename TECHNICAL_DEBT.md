@@ -8,16 +8,24 @@ I started to investigate those issues but found out that they are not trivial to
 
 One heading per issue. A description of the issue, the current workaround and sources to continue investigation should be provided.
 
-## Mocha --exit
+## Program not exiting / mocha --exit
 
-Something keeps the tests running to infinity. I'm not sure if this is an issue with the tests or with the program itself. But it needs to be fixed.
+Something keeps the tests running to infinity. This is an issue with the program itself and it needs to be fixed because it might keep a lot of processes open when called in the API.
 
-The current workaround is to run `mocha` with the `--exit` option.
+See this GitHub issue to understand the reason for this https://github.com/dbusjs/node-dbus-next/issues/69
+
+Apparently it is intended that the dbus connections never terminate as they need to keep listening for incoming messages (which is not a use case for this library yet). As all dbus.sessionBus() and dbus.systemBus() connect to the same dbus-daemon, this might not even be an issue.
+
+Nevertheless this needs further investigation! We need to check if it is okay to keep it that way or if we need to disconnect from the bus explicitly.
+
+The current workaround for tests is to run `mocha` with the `--exit` option.
 
 For more information see:
 
-* https://stackoverflow.com/questions/50372866/mocha-not-exiting-after-test
-
+* On Mocha
+    * https://stackoverflow.com/questions/50372866/mocha-not-exiting-after-test
+* On possible fixes
+    * https://stackoverflow.com/questions/29333017/ecmascript-6-class-destructor
 
 ## Tests run against the real DBus
 
