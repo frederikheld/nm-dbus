@@ -19,7 +19,13 @@ describe ('Devices', () => {
         }).timeout(20000)
     })
 
-    describe ('getWireless()', () => {
-        it ('Should return a list of only devices that have a wireless interface')
+    describe.only ('getWireless()', () => {
+        it ('Should return a list of only devices that have a wireless interface', async () => {
+            const nm = new NetworkManager()
+            const wirelessDevices = await nm.devices.getWireless()
+            for (const [i, device] of wirelessDevices.entries()) {
+                expect(await device.hasWirelessInterface()).to.equal(true)
+            }
+        })
     })
 })
