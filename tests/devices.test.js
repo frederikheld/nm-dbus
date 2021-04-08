@@ -11,9 +11,9 @@ describe ('Devices', () => {
     describe ('getAll()', () => {      
         it ('Should return a list of available network devices', async () => {
             const nm = new NetworkManager()
-            const listOfdevices = await nm.devices.getAll()
-            expect(listOfdevices).to.be.an.instanceOf(Array).with.length.greaterThan(0) // TODO: this assumes that there's at least one network device available!
-            expect(listOfdevices.every((item) => {
+            const devices = await nm.devices.getAll()
+            expect(devices).to.be.an.instanceOf(Array).with.length.greaterThan(0) // TODO: this assumes that there's at least one network device available!
+            expect(devices.every((item) => {
                 return item instanceof Device
             }))
         }).timeout(20000)
