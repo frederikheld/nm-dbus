@@ -7,6 +7,7 @@ const expect = chai.expect
 
 const NetworkManager = require('../lib/network-manager')
 const Connection = require('../lib/connection')
+const Connections = require('../lib/connections')
 const Device = require('../lib/device')
 const Devices = require('../lib/devices')
 const Wireless = require('../lib/wireless')
@@ -19,14 +20,17 @@ describe ('NetworkManager', () => {
 
                 const nm = new NetworkManager()
 
-                const connection = new NetworkManager.Connection(nm.dbusType, nm.dbusConfig)
-                expect(connection).to.be.instanceOf(Connection)
+                const connections = new NetworkManager.Connections(nm.dbusType, nm.dbusConfig)
+                expect(connections).to.be.instanceOf(Connections)
 
-                const device = new NetworkManager.Device({ }, nm.dbusType, nm.dbusConfig) // TODO: this signature deviates from the others which is bad.
-                expect(device).to.be.instanceOf(Device)
+                const connection = new NetworkManager.Connection(nm.dbusType, nm.dbusConfig, { })
+                expect(connection).to.be.instanceOf(Connection)
 
                 const devices = new NetworkManager.Devices(nm.dbusType, nm.dbusConfig)
                 expect(devices).to.be.instanceOf(Devices)
+
+                const device = new NetworkManager.Device({ }, nm.dbusType, nm.dbusConfig) // TODO: this signature deviates from the others which is bad.
+                expect(device).to.be.instanceOf(Device)
 
                 const wireless = new NetworkManager.Wireless(nm.dbusType, nm.dbusConfig)
                 expect(wireless).to.be.instanceOf(Wireless)
@@ -38,15 +42,24 @@ describe ('NetworkManager', () => {
                 const { NetworkManager, Connection, Device, Devices, Wireless } = require('../lib/network-manager')
 
                 const nm = new NetworkManager()
-                new Connection(nm.dbusType, nm.dbusConfig)
-                new Device({ }, nm.dbusType, nm.dbusConfig)
+                new Connections(nm.dbusType, nm.dbusConfig)
+                new Connection(nm.dbusType, nm.dbusConfig, { })
                 new Devices(nm.dbusType, nm.dbusConfig)
+                new Device({ }, nm.dbusType, nm.dbusConfig)
                 new Wireless(nm.dbusType, nm.dbusConfig)
             }).to.not.throw()
         })
     })
 
     describe ('Sub-module access', () => {
+        describe ('nm.connections', () => {
+            it ('Should provide access to an instance of Connections', () => {
+                const nm = new NetworkManager()
+                const connections = nm.connections
+                expect(connections).to.be.instanceOf(Connections)
+            })
+        })
+
         describe ('nm.devices', () => {
             it ('Should provide access to an instance of Devices', () => {
                 const nm = new NetworkManager()
