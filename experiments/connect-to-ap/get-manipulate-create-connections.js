@@ -19,7 +19,7 @@ async function main () {
     // list existing connections:
     const connections = await nm.connections.getAll()
     connections.forEach((connection) => {
-        console.log(connection.connectionId)
+        console.log(connection.connectionId + ' > ' + connection.dbusConfig.connectionPath)
     })
 
     // const connection = connections[4]
@@ -35,7 +35,7 @@ async function main () {
 
     // connetion path of previously configured connection
     // (you need to adjust this to an existing wifi connection!):
-    const connectionPath = '/org/freedesktop/NetworkManager/Settings/9'
+    const connectionPath = '/org/freedesktop/NetworkManager/Settings/116'
 
     const existingConnection = new NetworkManager.Connection(nm.dbusType, nm.dbusConfig)
     await existingConnection.load(connectionPath)
@@ -60,7 +60,7 @@ async function main () {
 
     // Deleting connection:
     setTimeout(async () => {
-        console.log('Deleting new connection ...')
+        console.log('Deleting connection ...')
         await newConnection.delete()
         console.log('Done.')
     }, 5000)

@@ -29,7 +29,7 @@ describe ('NetworkManager', () => {
                 const devices = new NetworkManager.Devices(nm.dbusType, nm.dbusConfig)
                 expect(devices).to.be.instanceOf(Devices)
 
-                const device = new NetworkManager.Device({ }, nm.dbusType, nm.dbusConfig) // TODO: this signature deviates from the others which is bad.
+                const device = new NetworkManager.Device(nm.dbusType, nm.dbusConfig)
                 expect(device).to.be.instanceOf(Device)
 
                 const wireless = new NetworkManager.Wireless(nm.dbusType, nm.dbusConfig)
@@ -45,7 +45,7 @@ describe ('NetworkManager', () => {
                 new Connections(nm.dbusType, nm.dbusConfig)
                 new Connection(nm.dbusType, nm.dbusConfig, { })
                 new Devices(nm.dbusType, nm.dbusConfig)
-                new Device({ }, nm.dbusType, nm.dbusConfig)
+                new Device(nm.dbusType, nm.dbusConfig)
                 new Wireless(nm.dbusType, nm.dbusConfig)
             }).to.not.throw()
         })

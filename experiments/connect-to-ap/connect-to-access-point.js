@@ -29,8 +29,8 @@ async function main () {
     // Check if wireless is enabled:
     console.log('wireless enabled:', await nm.wireless.isEnabled())
 
-    // pick first wireless device from list as an example:
-
+    // Pick first wireless device from list as an example:
+    
     const device = wirelessDevices[0]
     console.log(await device.hasWirelessInterface())
 
@@ -52,12 +52,19 @@ async function main () {
     // in the 5 GHz band as well as in the 2.4 GHz band. This is
     // common practice for many routers.
 
+    // console.log('accessPoint objects list:', accessPoint)
+
+    // Check for stored connections for this AP:
+
+    // If not found: create a new connection for this AP:
+
+    // Activate connection (known or new):
+
     // Connect to access point:
     await accessPoint[0].connect()
 
 
 
-    // Connect to access point with Ssid Yavin-4
 
     console.log(Date.now())
 
