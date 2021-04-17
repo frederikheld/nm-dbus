@@ -52,7 +52,7 @@ async function main () {
 
     // creating new connection:
     console.log('Creating new connection ...')
-    const newConnection = await nm.connections.createWifi(CONFIG.ssid, CONFIG.psk)
+    const newConnection = await nm.connections.createWifiClient(CONFIG.ssid, CONFIG.psk)
     console.log('Done.')
     console.log('New connection:')
     console.log('  id:  ', newConnection.connectionId)
