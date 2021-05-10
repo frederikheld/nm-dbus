@@ -4,18 +4,18 @@ const chai = require('chai')
 
 chai.should()
 
-const objectDeepMerge = require('../lib/utils/object-deep-merge')
+const mergeDbusSettings = require('../lib/utils/dbus-settings').mergeDbusSettings
 
-describe ('utils objectDeepMerge()', () => {
+describe ('utils.dbus-settings mergeDbusSettings()', () => {
     it ('will merge objectB values over objectA values 1 level deep', () => {
-        objectDeepMerge({}, {}).should.deep.equal({})
+        mergeDbusSettings({}, {}).should.deep.equal({})
 
-        objectDeepMerge({ foo: 'bar' }, {}).should.deep.equal({ foo: 'bar' })
-        objectDeepMerge({}, { foo: 'bar' }).should.deep.equal({ foo: 'bar' })
+        mergeDbusSettings({ foo: 'bar' }, {}).should.deep.equal({ foo: 'bar' })
+        mergeDbusSettings({}, { foo: 'bar' }).should.deep.equal({ foo: 'bar' })
 
-        objectDeepMerge({ foo: 'bar' }, { foo: 'baz' }).should.deep.equal({ foo: 'baz' })
-        objectDeepMerge({ foo: 'bar', dings: 'bums' }, { foo: 'baz' }).should.deep.equal({ foo: 'baz', dings: 'bums' })
-        objectDeepMerge({ foo: 'bar' }, { foo: 'baz', dings: 'bums' }).should.deep.equal({ foo: 'baz', dings: 'bums' })
+        mergeDbusSettings({ foo: 'bar' }, { foo: 'baz' }).should.deep.equal({ foo: 'baz' })
+        mergeDbusSettings({ foo: 'bar', dings: 'bums' }, { foo: 'baz' }).should.deep.equal({ foo: 'baz', dings: 'bums' })
+        mergeDbusSettings({ foo: 'bar' }, { foo: 'baz', dings: 'bums' }).should.deep.equal({ foo: 'baz', dings: 'bums' })
     })
 
     it ('will merge objectB values over objectA values 2 levels deep', () => {
@@ -43,10 +43,10 @@ describe ('utils objectDeepMerge()', () => {
             }
         }
 
-        objectDeepMerge(objectA, objectB).should.deep.equal(expectedResult)
+        mergeDbusSettings(objectA, objectB).should.deep.equal(expectedResult)
     })
 
-    it('will merge objectB values over objectA values 3 levels deep (which proves the recursive nature)', () => {
+    it('will merge objectB values over objectA values 3 levels deep (which proves its recursive nature)', () => {
         const objectA = {
             foo: 'bar',
             dings: {
@@ -77,7 +77,7 @@ describe ('utils objectDeepMerge()', () => {
             }
         }
 
-        objectDeepMerge(objectA, objectB).should.deep.equal(expectedResult)
+        mergeDbusSettings(objectA, objectB).should.deep.equal(expectedResult)
     })
 
     it ('will not mutate the source objects', () => {
@@ -124,7 +124,7 @@ describe ('utils objectDeepMerge()', () => {
         sourceObjectB.should.deep.equal(resultObjectB)
 
         // perform deep merge:
-        objectDeepMerge(sourceObjectA, sourceObjectB).should.deep.equal(expectedResult)
+        mergeDbusSettings(sourceObjectA, sourceObjectB).should.deep.equal(expectedResult)
 
         // check if source and reference are still equal:
         sourceObjectA.should.deep.equal(resultObjectA)
@@ -133,14 +133,14 @@ describe ('utils objectDeepMerge()', () => {
     })
 
     it ('will overwrite arrays entirely (no overwriting of indices)', () => {
-        objectDeepMerge({ 'foo': [1, 2, 3] }, { 'foo': ['5'] }).should.deep.equal({ 'foo': ['5'] })
+        mergeDbusSettings({ 'foo': [1, 2, 3] }, { 'foo': ['5'] }).should.deep.equal({ 'foo': ['5'] })
     })
 
     it ('will overwrite objects with primitives', () => {
-        objectDeepMerge({ 'foo': { a: '1' } }, { 'foo': 3 }).should.deep.equal({ 'foo': 3 })
+        mergeDbusSettings({ 'foo': { a: '1' } }, { 'foo': 3 }).should.deep.equal({ 'foo': 3 })
     })
 
     it ('will overwrite primitives with nested objects', () => {
-        objectDeepMerge({ 'foo': 3 }, { 'foo': { 'a': { 'foo': 'bar' } } }).should.deep.equal({ 'foo': { 'a': { 'foo': 'bar' } } })
+        mergeDbusSettings({ 'foo': 3 }, { 'foo': { 'a': { 'foo': 'bar' } } }).should.deep.equal({ 'foo': { 'a': { 'foo': 'bar' } } })
     })
 })

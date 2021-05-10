@@ -15,6 +15,7 @@ async function main() {
     const connection = await nm.connections.createWifiClient('foo', 'barbarbar', additionalDbusSettings)
 
     console.log('connection.dbusSettings:', connection.dbusSettings)
+
 }
 
 main()
