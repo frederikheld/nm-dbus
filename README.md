@@ -12,7 +12,7 @@ Tests are executed against the real DBus daemon. If your system provides DBus, y
 $ npm run test
 ```
 
-> Note: this is the minimal viable approach to be able to test this code. To make this free from side effects, tests should run in an isolated environment like a Docker container. It turned out that this is not trivial to achieve with DBus so I gave up. I would be happy to receive a Pull Request that allows to run those tests in an isolated environment!
+> Note: this is the minimal viable approach to be able to test this code. To make this free from side effects, tests should run in an isolated environment like a Docker container. I tried this, but it turned out that it is not trivial to achieve with DBus so I gave up. I would be happy to receive a Pull Request that allows to run those tests in an isolated environment!
 
 ### Prerequisites
 

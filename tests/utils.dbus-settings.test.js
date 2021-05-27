@@ -37,7 +37,11 @@ describe ('utils.dbus-settings', () => {
             // TODO: I can't really prove this right now because I haven't found any 1st level or > 2nd level settings yet.
         })
 
-        it ('will tread buffers like primitive values (instead of iterating over it because it is an object)', () => {
+        it ('will note recurse through arrays (which are typeof Object), but properly mask them as `aau`', () => {
+            maskDbusSettings({ ipv4: { addresses: [ '192.168.0.1/24', '192.168.0.2/24' ] } }).should.deep.equal({ ipv4: { addresses: new dbus.Variant('aau', [ '192.168.0.1/24', '192.168.0.2/24' ]) } })
+        })
+
+        it ('will not recurse through buffers (which are typeof Object), but properly mask them as `ay`', () => {
             maskDbusSettings({ '802-11-wireless': { ssid: Buffer.from('some-ssid') } }).should.deep.equal({ '802-11-wireless': { ssid: new dbus.Variant('ay', Buffer.from('some-ssid')) } })
         })
     })
