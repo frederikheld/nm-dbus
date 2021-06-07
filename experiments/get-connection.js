@@ -19,6 +19,14 @@ async function main () {
     const connection = await nm.connections.getByPath(selectedConnectionPath)
     console.log(connection)
 
+    console.log('\nCONNECTIONS BY ID:')
+
+    const connectionsById = await nm.connections.getById('^[Ff]') // all connections starting with lower case or upper case f
+    const ids = connectionsById.map(connectionObject => connectionObject.connectionId)
+    console.log(ids)
+
+    nm.disconnect()
+
 }
 
 main()
