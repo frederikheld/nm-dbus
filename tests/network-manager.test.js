@@ -34,6 +34,15 @@ describe ('NetworkManager', () => {
 
                 const wireless = new NetworkManager.Wireless(nm.dbusType, nm.dbusConfig)
                 expect(wireless).to.be.instanceOf(Wireless)
+
+                const { mergeDbusSettings, maskDbusSettings, dbusSettingsVariantTypes }  = NetworkManager.Utils.DbusSettings
+                expect(mergeDbusSettings.name).to.equal('mergeDbusSettings')
+                expect(maskDbusSettings.name).to.equal('maskDbusSettings')
+                expect(dbusSettingsVariantTypes).to.be.instanceOf(Object)
+
+                const { escapeRegExString } = NetworkManager.Utils.Strings
+                expect(escapeRegExString.name).to.equal('escapeRegExString')
+
             }).to.not.throw()
         })
 
