@@ -1,6 +1,6 @@
 {
   "name": "nm-dbus",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Provides simplified access to NetworkManager features via DBus",
   "main": "index.js",
   "scripts": {
